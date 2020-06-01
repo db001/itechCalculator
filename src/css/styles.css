@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+/*
+@mixin transition($trans-params) {
+    -webkit-transition: $trans-params;
+    -moz-transition: $trans-params;
+    -o-transition: $trans-params;
+    transition: $trans-params;
+}
+
+// Usage:
+@include transition(all 0.25s ease);
+
+*/
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0; }
+
+h1 {
+  font-family: "Open Sans", sans-serif;
+  color: black; }
+
+.main-para {
+  font-family: cursive;
+  color: blue; }
+
+#autoprefix-test {
+  display: flex; }
+
+/*# sourceMappingURL=styles.css.map */
