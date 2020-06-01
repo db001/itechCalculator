@@ -1,16 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
-/*
-@mixin transition($trans-params) {
-    -webkit-transition: $trans-params;
-    -moz-transition: $trans-params;
-    -o-transition: $trans-params;
-    transition: $trans-params;
-}
-
-// Usage:
-@include transition(all 0.25s ease);
-
-*/
 html,
 body {
   color: #fff;
@@ -24,7 +12,7 @@ body {
 }
 
 .calculator {
-  margin: 0 auto;
+  margin: 64px auto 0;
   width: 200px;
 }
 
@@ -37,9 +25,11 @@ body {
   color: #747c80;
   font-weight: 300;
   font-size: 1.25rem;
+  height: 1.25rem;
 }
 .display .total {
   font-size: 2.5rem;
+  height: 2.5rem;
 }
 
 .button_row {
@@ -59,9 +49,21 @@ body {
   background-color: #ec475c;
   width: 75px;
 }
+.button_row .button.button__misc:hover {
+  background-color: #e71933;
+}
 .button_row .button.button__numeric {
   background-color: #f6827a;
 }
+.button_row .button.button__numeric:hover {
+  background-color: #f3554a;
+}
+.button_row .button.button__numeric.button__blank {
+  pointer-events: none;
+}
 .button_row .button.button__operator {
   background-color: #f7ba86;
+}
+.button_row .button.button__operator:hover {
+  background-color: #f49f56;
 }

@@ -34,11 +34,10 @@ Your code should be written in ES6 JavaScript and run through a compiler by usin
 
 #### Complete as much as you can from your own personal knowledge.
 
-1. **Number functionality**
-2. Users should be able to push each number on the calculator using their mouse and it will display on the header of the calculator.
-3. **Add, minus, divide and multiply** - Users should be able to enter their operation and be able to perform all of the above actions **(addition, subtraction, division and multiplication)** in order to get the correct result when clicking equals.
-4. **Returning an answer** - After the user has put in their sum, pressing the Equal button should then give them the answer. You will update the current displayed sum in the header and display the answer instead.
-5. **Clear and start again** - Clicking the AC button should give the "All Clear" and clear the calculator header to 0, and remove any background sums, ready to start a new one.
+1. **Number functionality** Users should be able to push each number on the calculator using their mouse and it will display on the header of the calculator.
+2. **Add, minus, divide and multiply** - Users should be able to enter their operation and be able to perform all of the above actions **(addition, subtraction, division and multiplication)** in order to get the correct result when clicking equals.
+3. **Returning an answer** - After the user has put in their sum, pressing the Equal button should then give them the answer. You will update the current displayed sum in the header and display the answer instead.
+4. **Clear and start again** - Clicking the AC button should give the "All Clear" and clear the calculator header to 0, and remove any background sums, ready to start a new one.
 
 ### PHP Section – 1 hour
 

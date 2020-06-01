@@ -1,6 +1,5 @@
 // Reset and/or normalize styles, box-sizing, etc.
 
-//Example
 html,
 body {
     color: $font-color;
@@ -9,7 +8,6 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    // @include bg-grad(#777799, #dedeff);
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
 }
