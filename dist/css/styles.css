@@ -1,16 +1,67 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
 /*
-@mixin transition($trans-params) { -webkit-transition: $trans-params; -moz-transition: $trans-params; -o-transition: $trans-params; transition: $trans-params;
+@mixin transition($trans-params) {
+    -webkit-transition: $trans-params;
+    -moz-transition: $trans-params;
+    -o-transition: $trans-params;
+    transition: $trans-params;
 }
 
 // Usage:
 @include transition(all 0.25s ease);
 
 */
-html, body { margin: 0; padding: 0; font-family: "Open Sans", sans-serif; text-align: center; -webkit-margin-before: 0; -webkit-margin-after: 0; }
+html,
+body {
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
 
-h1 { font-family: "Open Sans", sans-serif; color: black; }
+.calculator {
+  margin: 0 auto;
+  width: 200px;
+}
 
-.main-para { font-family: cursive; color: red; }
+.display {
+  background-color: #25363b;
+  padding: 16px;
+  text-align: right;
+}
+.display .input {
+  color: #747c80;
+  font-weight: 300;
+  font-size: 1.25rem;
+}
+.display .total {
+  font-size: 2.5rem;
+}
 
-#autoprefix-test { display: flex; }
+.button_row {
+  border-bottom: 1px solid #c7966c;
+  display: flex;
+  width: 100%;
+}
+.button_row .button {
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 1.25rem;
+  height: 50px;
+  line-height: 50px;
+  width: 50px;
+}
+.button_row .button.button__misc {
+  background-color: #ec475c;
+  width: 75px;
+}
+.button_row .button.button__numeric {
+  background-color: #f6827a;
+}
+.button_row .button.button__operator {
+  background-color: #f7ba86;
+}

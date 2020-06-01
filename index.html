@@ -5,14 +5,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Calculator</title>
 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="dist/css/styles.css" />
     </head>
     <body>
-        <h1>Hello World</h1>
-        <p class="main-para">Template for setting up a project with Grunt & sass</p>
-        <p class="js-test">JS test</p>
-        <div id="autoprefix-test">Testing autoprefix</div>
-
+        <div class="calculator">
+            <div class="display">
+                <div class="input">365 x 4 =</div>
+                <div class="total">1460</div>
+            </div>
+            <div class="buttons_container">
+                    <div class="button_row">
+                        <div class="button button__misc">AC</div>
+                        <div class="button button__misc">SAVE</div>
+                        <div class="button button__operator" data-operator="/">&#247;</div>
+                    </div>
+                    <div class="button_row">
+                        <div class="button button__numeric" data_input="decimal">.</div>
+                        <div class="button button__numeric" data_input="0">0</div>
+                        <div class="button button__numeric button__blank" data_input="null"></div>
+                        <div class="button button__operator" data-operator="*">&#215;</div>
+                    </div>
+                    <div class="button_row">
+                        <div class="button button__numeric" data_input="1">1</div>
+                        <div class="button button__numeric" data_input="2">2</div>
+                        <div class="button button__numeric" data_input="3">3</div>
+                        <div class="button button__operator" data-operator="-">&#8722;</div>
+                    </div>
+                    <div class="button_row">
+                        <div class="button button__numeric" data_input="4">4</div>
+                        <div class="button button__numeric" data_input="5">5</div>
+                        <div class="button button__numeric" data_input="6">6</div>
+                        <div class="button button__operator" data-operator="+">&#43;</div>
+                    </div>
+                    <div class="button_row">
+                        <div class="button button__numeric" data_input="7">7</div>
+                        <div class="button button__numeric" data_input="8">8</div>
+                        <div class="button button__numeric" data_input="9">9</div>
+                        <div id="equals_button" class="button button__operator" data-operator="=">&#61;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript" src="./dist/app.js"></script>
     </body>
 </html>

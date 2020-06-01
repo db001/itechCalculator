@@ -1,8 +1,6 @@
 const a = 25;
 
-function add(x) {
-    return x + 25;
-}
+const add = (x) => x + 25;
 
 console.log(add(a));
 

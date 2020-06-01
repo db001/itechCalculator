@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                 }
             },
             sass: {
-                files: "src/scss/*.scss",
+                files: "src/scss/**/*.scss",
                 tasks: ['sass']
             },
         },
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
             },
             options: {
                 sourcemap: "none",
-                style: "compact",
+                style: "expanded",
                 noCache: true
             }
         },

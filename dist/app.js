@@ -2,9 +2,9 @@
 
 var a = 25;
 
-function add(x) {
-    return x + 25;
-}
+var add = function add(x) {
+  return x + 25;
+};
 
 console.log(add(a));
 
