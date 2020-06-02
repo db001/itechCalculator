@@ -11,7 +11,6 @@ If not equals, add to string and display updated string
 
 If equals, evaluate sum and show in total, show "=" in display
 
-
 Misc buttons:
 'AC' - clear string and display
 'SAVE' - see PHP part of test
@@ -20,11 +19,6 @@ Misc buttons:
 Do it as an array and .join before eval
 
 */
-
-// String to hold calculations in progress
-let calcString = '';
-let currentInput = '';
-let calcArray = [];
 
 // Object to hold calculation data
 
@@ -47,30 +41,29 @@ const operatorButtons = Array.prototype.slice.call(document.querySelectorAll('.b
 numericButtons.map(numBtn => {
     numBtn.addEventListener('click', function () {
         const btnAttr = this.dataset.input;
-        const { currentInputString, currentInputType, calculationArray } = calcData;
 
-        console.log('currentInputString', currentInputString);
-
-        // console.log(calcData);
-
-        if (currentInputType === "operator") {
-            calculationArray.push(currentInputString);
-            currentInputString = '';
-            currentInputType = null;
-            headerDisplay.innerText = calculationArray.join(" ");
+        if (calcData.currentInputType == "equals") {
+            clearCalcData();
         }
 
-        if ((btnAttr === "." && currentInputString.indexOf('.') != -1) || currentInputString.length >= 7) {
+        if (calcData.currentInputType === 'operator') {
+            calcData.calculationArray.push(calcData.currentInputString);
+            calcData.currentInputString = '';
+            calcData.currentInputType = null;
+            displayHeader(calcData.calculationArray.join(" "));
+        }
+
+        if ((btnAttr === "." && calcData.currentInputString.indexOf('.') != -1) || calcData.currentInputString.length >= 7) {
             return;
         }
 
-        if (btnAttr === "." && currentInputString.length === 0) {
-            currentInputString += "0.";
+        if (btnAttr === "." && calcData.currentInputString.length === 0) {
+            calcData.currentInputString += "0.";
         } else {
-            currentInputString += btnAttr;
+            calcData.currentInputString += btnAttr;
         }
 
-        totalDisplay.innerText = currentInputString;
+        totalDisplay.innerText = calcData.currentInputString;
     });
 });
 
@@ -78,20 +71,17 @@ numericButtons.map(numBtn => {
 operatorButtons.map(opBtn => {
     opBtn.addEventListener('click', function () {
 
-        const { currentInputString, currentInputType, calculationArray } = calcData;
-
-        if (currentInputType != "operator") {
-            calculationArray.push(currentInputString);
-            currentInputString = '';
+        if (calcData.currentInputType != 'operator' && calcData.currentInputString.length != 0) {
+            calcData.calculationArray.push(calcData.currentInputString);
+            calcData.currentInputString = '';
         }
 
-        console.log(calcData);
-
-        const btnType = this.dataset.btnType || null;
+        const btnType = this.dataset.btntype;
         const operator = this.dataset.operator;
 
         if (calcData.calculationArray.length === 0) {
             calcData.calculationArray.push("0");
+            displayHeader(calcData.calculationArray.join(" "));
         }
 
         calcData.currentInputString = operator;
@@ -99,14 +89,44 @@ operatorButtons.map(opBtn => {
     });
 });
 
+// Equals button logic
+equalsButton.addEventListener('click', function () {
+    if (calcData.currentInputType === 'operator') {
+        calcData.currentInputString = "";
+    }
+    if (calcData.currentInputString.length != 0) {
+        calcData.calculationArray.push(calcData.currentInputString);
+    }
+
+    calcData.currentInputType = this.dataset.btntype;
+
+    const result = eval(calcData.calculationArray.join(""));
+
+    displayHeader(calcData.calculationArray.join(" ") + " =")
+
+    totalDisplay.innerText = result;
+
+    clearCalcData();
+    calcData.calculationArray.push(result);
+});
+
 // AC button logic
 clearButton.addEventListener('click', function () {
     clearDisplay();
 });
 
-function clearDisplay() {
+function displayHeader(str) {
+    headerDisplay.innerText = str.replace(/\*/gi, '×').replace(/\//gi, '÷');
+}
+
+function clearCalcData() {
     calcData.currentInputString = '';
     calcData.calculationArray = [];
+    calcData.currentInputType = null;
+}
+
+function clearDisplay() {
+    clearCalcData();
     headerDisplay.innerText = '';
     totalDisplay.innerText = '0';
 }
