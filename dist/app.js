@@ -17,14 +17,26 @@ If equals, evaluate sum and show in total, show "=" in display
 Misc buttons:
 'AC' - clear string and display
 'SAVE' - see PHP part of test
+
+
+Do it as an array and .join before eval
+
 */
 
 // String to hold calculations in progress
 var calcString = '';
-var currentNumericInput = '';
+var currentInput = '';
+var calcArray = [];
 
-// Get DOM elements
-var inputDisplay = document.getElementById('input_display');
+// Object to hold calculation data
+
+var calcData = {
+    currentInputString: '',
+    currentInputType: null,
+    calculationArray: []
+
+    // Get DOM elements
+};var inputDisplay = document.getElementById('input_display');
 var totalDisplay = document.getElementById('total_display');
 var clearButton = document.getElementById('clear_button');
 var equalsButton = document.getElementById('equals_button');
@@ -44,7 +56,7 @@ numericButtons.map(function (numBtn) {
             calcString += btnAttr;
         }
 
-        inputDisplay.innerText = calcString;
+        totalDisplay.innerText = calcString;
     });
 });
 
@@ -55,7 +67,8 @@ clearButton.addEventListener('click', function () {
 });
 
 function clearDisplay() {
-    calcString = '';
+    currentNumericInput = '';
+    calcArray = [];
     inputDisplay.innerText = '';
     totalDisplay.innerText = '0';
 }
