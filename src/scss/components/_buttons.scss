@@ -11,7 +11,7 @@
         line-height: $button-size;
         width: $button-size;
 
-        &.button__misc {
+        &__misc {
             background-color: $misc-button-background;
             width: (4 * $button-size - $button-size) / 2;
             &:hover {
@@ -19,7 +19,7 @@
             }
         }
 
-        &.button__numeric {
+        &__numeric {
             background-color: $numeric-button-background;
             &:hover {
                 background-color: darken($numeric-button-background, 10%);
@@ -28,7 +28,8 @@
                 pointer-events: none;
             }
         }
-        &.button__operator {
+        &__operator,
+        &__equals {
             background-color: $operator-button-background;
             &:hover {
                 background-color: darken($operator-button-background, 10%);

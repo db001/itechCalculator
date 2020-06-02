@@ -36,39 +36,66 @@ var calcData = {
     calculationArray: []
 
     // Get DOM elements
-};var inputDisplay = document.getElementById('input_display');
+};var headerDisplay = document.getElementById('input_display');
 var totalDisplay = document.getElementById('total_display');
 var clearButton = document.getElementById('clear_button');
 var equalsButton = document.getElementById('equals_button');
 
-// Get numeric buttons
 var numericButtons = Array.prototype.slice.call(document.querySelectorAll('.button__numeric'));
+var operatorButtons = Array.prototype.slice.call(document.querySelectorAll('.button__operator'));
 
 numericButtons.map(function (numBtn) {
     numBtn.addEventListener('click', function () {
         var btnAttr = this.dataset.input;
-        if (btnAttr === "." && calcString.indexOf('.') != -1) {
-            return;
-        }
-        if (btnAttr === "." && calcString.length === 0) {
-            calcString += "0.";
-        } else {
-            calcString += btnAttr;
+
+        console.log(calcData);
+
+        if (calcData.currentInputType === "operator") {
+            calcData.calculationArray.push(currentInputString);
+            calcData.currentInputType = null;
+            headerDisplay.innerText = calcData.calculationArray.join(" ");
         }
 
-        totalDisplay.innerText = calcString;
+        if (btnAttr === "." && calcData.currentInputString.indexOf('.') != -1 || calcData.currentInputString.length >= 7) {
+            return;
+        }
+
+        if (btnAttr === "." && calcData.currentInputString.length === 0) {
+            calcData.currentInputString += "0.";
+        } else {
+            calcData.currentInputString += btnAttr;
+        }
+
+        totalDisplay.innerText = calcData.currentInputString;
+    });
+});
+
+// Operator button logic
+operatorButtons.map(function (opBtn) {
+    opBtn.addEventListener('click', function () {
+
+        console.log(calcData);
+
+        var btnType = this.dataset.btnType || null;
+        var operator = this.dataset.operator;
+
+        if (calcData.calculationArray.length === 0) {
+            calcData.calculationArray.push("0");
+        }
+
+        calcData.currentInputString = operator;
+        calcData.currentInputType = btnType;
     });
 });
 
 // AC button logic
-
 clearButton.addEventListener('click', function () {
     clearDisplay();
 });
 
 function clearDisplay() {
-    currentNumericInput = '';
-    calcArray = [];
-    inputDisplay.innerText = '';
+    calcData.currentInputString = '';
+    calcData.calculationArray = [];
+    headerDisplay.innerText = '';
     totalDisplay.innerText = '0';
 }

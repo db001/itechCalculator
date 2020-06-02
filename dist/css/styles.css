@@ -45,25 +45,25 @@ body {
   line-height: 50px;
   width: 50px;
 }
-.button_row .button.button__misc {
+.button_row .button__misc {
   background-color: #ec475c;
   width: 75px;
 }
-.button_row .button.button__misc:hover {
+.button_row .button__misc:hover {
   background-color: #e71933;
 }
-.button_row .button.button__numeric {
+.button_row .button__numeric {
   background-color: #f6827a;
 }
-.button_row .button.button__numeric:hover {
+.button_row .button__numeric:hover {
   background-color: #f3554a;
 }
-.button_row .button.button__numeric.button__blank {
+.button_row .button__numeric.button__blank {
   pointer-events: none;
 }
-.button_row .button.button__operator {
+.button_row .button__operator, .button_row .button__equals {
   background-color: #f7ba86;
 }
-.button_row .button.button__operator:hover {
+.button_row .button__operator:hover, .button_row .button__equals:hover {
   background-color: #f49f56;
 }
