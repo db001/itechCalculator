@@ -5,15 +5,15 @@
  <body>
  <?php
     echo "<html><body><table>\n\n";
-    $f = fopen("calculations.csv", "r");
-    while (($line = fgetcsv($f)) !== false) {
+    $file = fopen("calculations.csv", "r");
+    while (($line = fgetcsv($file)) !== false) {
             echo "<tr>";
             foreach ($line as $cell) {
                     echo "<td>" . htmlspecialchars($cell) . "</td>";
             }
             echo "</tr>\n";
     }
-    fclose($f);
+    fclose($file);
     echo "\n</table></body></html>";
     ?>
  </body>
