@@ -1,10 +1,8 @@
 "use strict";
 
-var calcData = {
-  currentInputString: '',
-  currentInputType: null,
-  calculationArray: []
-};
+var calculationArray = [];
+var currentInputString = "";
+var calcString = "";
 var headerDisplay = document.getElementById('input_display');
 var totalDisplay = document.getElementById('total_display');
 var clearButton = document.getElementById('clear_button');
@@ -13,83 +11,78 @@ var numericButtons = Array.prototype.slice.call(document.querySelectorAll('.butt
 var operatorButtons = Array.prototype.slice.call(document.querySelectorAll('.button__operator'));
 numericButtons.map(function (numBtn) {
   numBtn.addEventListener('click', function () {
+    totalDisplay.innerText = "";
     var btnAttr = this.dataset.input;
 
-    if (calcData.currentInputType == "equals") {
-      clearCalcData();
+    if (btnAttr === "." && calcData.currentInputString.length === 0) {
+      currentInputString += "0.";
     }
 
-    if (calcData.currentInputType === 'operator') {
-      calcData.calculationArray.push(calcData.currentInputString);
-      calcData.currentInputString = '';
-      calcData.currentInputType = null;
-      displayHeader(calcData.calculationArray.join(" "));
-    }
-
-    if (btnAttr === "." && calcData.currentInputString.indexOf('.') != -1 || calcData.currentInputString.length >= 7) {
+    if (btnAttr === "." && currentInputString.indexOf(".") != -1 || currentInputString.length >= 7) {
       return;
     }
 
-    if (btnAttr === "." && calcData.currentInputString.length === 0) {
-      calcData.currentInputString += "0.";
-    } else {
-      calcData.currentInputString += btnAttr;
-    }
-
-    totalDisplay.innerText = calcData.currentInputString;
+    currentInputString += btnAttr;
+    calcString += btnAttr;
+    totalDisplay.innerText = currentInputString;
   });
 });
 operatorButtons.map(function (opBtn) {
   opBtn.addEventListener('click', function () {
-    if (calcData.currentInputType != 'operator' && calcData.currentInputString.length != 0) {
-      calcData.calculationArray.push(calcData.currentInputString);
-      calcData.currentInputString = '';
-    }
-
-    var btnType = this.dataset.btntype;
     var operator = this.dataset.operator;
+    var lastElement = calcString[calcString.length - 1];
+    currentInputString = "";
 
-    if (calcData.calculationArray.length === 0) {
-      calcData.calculationArray.push("0");
-      displayHeader(calcData.calculationArray.join(" "));
+    if (calcString.length === 0) {
+      calcString += 0;
     }
 
-    calcData.currentInputString = operator;
-    calcData.currentInputType = btnType;
+    if (checkForOperator(lastElement)) {
+      calcString = calcString.slice(0, -1);
+    }
+
+    calcString += operator;
+    displayHeader(calcString);
+    totalDisplay.innerText = "0";
   });
 });
 equalsButton.addEventListener('click', function () {
-  if (calcData.currentInputType === 'operator') {
-    calcData.currentInputString = "";
+  var lastElement = calcString[calcString.length - 1];
+
+  if (checkForOperator(lastElement)) {
+    calcString = calcString.slice(0, -1);
   }
 
-  if (calcData.currentInputString.length != 0) {
-    calcData.calculationArray.push(calcData.currentInputString);
-  }
-
-  calcData.currentInputType = this.dataset.btntype;
-  var result = eval(calcData.calculationArray.join(""));
-  displayHeader(calcData.calculationArray.join(" ") + " =");
+  var result = eval(calcString);
+  var formattedString = formatString(calcString);
+  displayHeader(formattedString + " =");
   totalDisplay.innerText = result;
   clearCalcData();
-  calcData.calculationArray.push(result);
 });
 clearButton.addEventListener('click', function () {
   clearDisplay();
 });
 
+function formatString(str) {
+  return str.split(/(\*|\/|\-|\+)/gi).join(" ");
+}
+
 function displayHeader(str) {
-  headerDisplay.innerText = str.replace(/\*/gi, '×').replace(/\//gi, '÷');
+  var formattedString = formatString(str);
+  headerDisplay.innerText = formattedString.split(/(\*|\/|\-|\+)/gi).join(" ").replace(/\*/gi, '×').replace(/\//gi, '÷');
+}
+
+function checkForOperator(str) {
+  return /(\*|\/|\-|\+)/gi.test(str);
 }
 
 function clearCalcData() {
-  calcData.currentInputString = '';
-  calcData.calculationArray = [];
-  calcData.currentInputType = null;
+  currentInputString = "";
+  calcString = "";
 }
 
 function clearDisplay() {
   clearCalcData();
-  headerDisplay.innerText = '';
-  totalDisplay.innerText = '0';
+  headerDisplay.innerText = "";
+  totalDisplay.innerText = "0";
 }

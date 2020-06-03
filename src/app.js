@@ -1,32 +1,8 @@
-/*
-Onclick events ---
-
-Numeric buttons:
-Add to string, if "." then check if already occurs.
-Show string in display
-
-Operator buttons:
-If not equals, add to string and display updated string
-(regex to replace operators with correct symbols?)
-
-If equals, evaluate sum and show in total, show "=" in display
-
-Misc buttons:
-'AC' - clear string and display
-'SAVE' - see PHP part of test
-
-
-Do it as an array and .join before eval
-
-*/
-
-// Object to hold calculation data
-
-let calcData = {
-    currentInputString: '',
-    currentInputType: null,
-    calculationArray: []
-}
+let calculationArray = [];
+// String to hold the current input value for display in the total
+let currentInputString = "";
+// String to hold all chars entered, used for final calculation
+let calcString = "";
 
 // Get DOM elements
 const headerDisplay = document.getElementById('input_display');
@@ -37,77 +13,78 @@ const equalsButton = document.getElementById('equals_button');
 const numericButtons = Array.prototype.slice.call(document.querySelectorAll('.button__numeric'));
 const operatorButtons = Array.prototype.slice.call(document.querySelectorAll('.button__operator'));
 
-
+// Numeric button click logic
 numericButtons.map(numBtn => {
     numBtn.addEventListener('click', function () {
+        // Reset total display text
+        totalDisplay.innerText = "";
+        // Get value of input button
         const btnAttr = this.dataset.input;
 
-        if (calcData.currentInputType == "equals") {
-            clearCalcData();
+        // If the first digit is a decimal place, add a leading zero
+        if (btnAttr === "." && calcData.currentInputString.length === 0) {
+            currentInputString += "0."
         }
 
-        if (calcData.currentInputType === 'operator') {
-            calcData.calculationArray.push(calcData.currentInputString);
-            calcData.currentInputString = '';
-            calcData.currentInputType = null;
-            displayHeader(calcData.calculationArray.join(" "));
-        }
-
-        if ((btnAttr === "." && calcData.currentInputString.indexOf('.') != -1) || calcData.currentInputString.length >= 7) {
+        // If there is already a decimal place, ignore second input of it
+        if ((btnAttr === "." && currentInputString.indexOf(".") != -1) || currentInputString.length >= 7) {
             return;
         }
 
-        if (btnAttr === "." && calcData.currentInputString.length === 0) {
-            calcData.currentInputString += "0.";
-        } else {
-            calcData.currentInputString += btnAttr;
-        }
-
-        totalDisplay.innerText = calcData.currentInputString;
-    });
+        // Add input value to current input value
+        currentInputString += btnAttr;
+        calcString += btnAttr;
+        // Set total display to show current input
+        totalDisplay.innerText = currentInputString;
+    })
 });
 
 // Operator button logic
 operatorButtons.map(opBtn => {
     opBtn.addEventListener('click', function () {
-
-        if (calcData.currentInputType != 'operator' && calcData.currentInputString.length != 0) {
-            calcData.calculationArray.push(calcData.currentInputString);
-            calcData.currentInputString = '';
-        }
-
-        const btnType = this.dataset.btntype;
+        // Get operator value from HTML
         const operator = this.dataset.operator;
+        const lastElement = calcString[calcString.length - 1];
 
-        if (calcData.calculationArray.length === 0) {
-            calcData.calculationArray.push("0");
-            displayHeader(calcData.calculationArray.join(" "));
+        // Reset input string
+        currentInputString = "";
+
+        // If no numeric inputs yet, add zero to calcString
+        if (calcString.length === 0) {
+            calcString += 0;
         }
 
-        calcData.currentInputString = operator;
-        calcData.currentInputType = btnType;
+        // If the last button click was an operator, remove it
+        if (checkForOperator(lastElement)) {
+            calcString = calcString.slice(0, -1);
+        }
+
+        // Add operator to calculation string and display in the header
+        calcString += operator;
+        displayHeader(calcString);
+
+        // Reset total display
+        totalDisplay.innerText = "0";
     });
 });
 
-// Equals button logic
+// // Equals button logic
 equalsButton.addEventListener('click', function () {
-    if (calcData.currentInputType === 'operator') {
-        calcData.currentInputString = "";
+    const lastElement = calcString[calcString.length - 1];
+
+    // If the last button click was an operator, remove it
+    if (checkForOperator(lastElement)) {
+        calcString = calcString.slice(0, -1);
     }
-    if (calcData.currentInputString.length != 0) {
-        calcData.calculationArray.push(calcData.currentInputString);
-    }
 
-    calcData.currentInputType = this.dataset.btntype;
+    const result = eval(calcString);
 
-    const result = eval(calcData.calculationArray.join(""));
-
-    displayHeader(calcData.calculationArray.join(" ") + " =")
+    const formattedString = formatString(calcString)
+    displayHeader(formattedString + " =");
 
     totalDisplay.innerText = result;
 
     clearCalcData();
-    calcData.calculationArray.push(result);
 });
 
 // AC button logic
@@ -115,18 +92,26 @@ clearButton.addEventListener('click', function () {
     clearDisplay();
 });
 
+function formatString(str) {
+    return str.split(/(\*|\/|\-|\+)/gi).join(" ");
+}
+
 function displayHeader(str) {
-    headerDisplay.innerText = str.replace(/\*/gi, '×').replace(/\//gi, '÷');
+    const formattedString = formatString(str);
+    headerDisplay.innerText = formattedString.split(/(\*|\/|\-|\+)/gi).join(" ").replace(/\*/gi, '×').replace(/\//gi, '÷');
+}
+
+function checkForOperator(str) {
+    return /(\*|\/|\-|\+)/gi.test(str);
 }
 
 function clearCalcData() {
-    calcData.currentInputString = '';
-    calcData.calculationArray = [];
-    calcData.currentInputType = null;
+    currentInputString = "";
+    calcString = "";
 }
 
 function clearDisplay() {
     clearCalcData();
-    headerDisplay.innerText = '';
-    totalDisplay.innerText = '0';
+    headerDisplay.innerText = "";
+    totalDisplay.innerText = "0";
 }
