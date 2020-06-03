@@ -22,7 +22,7 @@ numericButtons.map(numBtn => {
         const btnAttr = this.dataset.input;
 
         // If the first digit is a decimal place, add a leading zero
-        if (btnAttr === "." && calcData.currentInputString.length === 0) {
+        if (btnAttr === "." && currentInputString.length === 0) {
             currentInputString += "0."
         }
 
@@ -68,7 +68,7 @@ operatorButtons.map(opBtn => {
     });
 });
 
-// // Equals button logic
+// Equals button logic
 equalsButton.addEventListener('click', function () {
     const lastElement = calcString[calcString.length - 1];
 

@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 var calculationArray = [];
 var currentInputString = "";
 var calcString = "";
@@ -14,7 +16,7 @@ numericButtons.map(function (numBtn) {
     totalDisplay.innerText = "";
     var btnAttr = this.dataset.input;
 
-    if (btnAttr === "." && calcData.currentInputString.length === 0) {
+    if (btnAttr === "." && currentInputString.length === 0) {
       currentInputString += "0.";
     }
 
@@ -54,6 +56,7 @@ equalsButton.addEventListener('click', function () {
   }
 
   var result = eval(calcString);
+  console.log(_typeof(result));
   var formattedString = formatString(calcString);
   displayHeader(formattedString + " =");
   totalDisplay.innerText = result;
