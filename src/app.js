@@ -9,6 +9,7 @@ const headerDisplay = document.getElementById('input_display');
 const totalDisplay = document.getElementById('total_display');
 const clearButton = document.getElementById('clear_button');
 const equalsButton = document.getElementById('equals_button');
+const saveButton = document.getElementById('save_button');
 
 const numericButtons = Array.prototype.slice.call(document.querySelectorAll('.button__numeric'));
 const operatorButtons = Array.prototype.slice.call(document.querySelectorAll('.button__operator'));
@@ -86,6 +87,27 @@ equalsButton.addEventListener('click', function () {
 
     clearCalcData();
 });
+
+// Save button logic
+saveButton.addEventListener('click', function () {
+    const formattedString = formatString(calcString);
+    // console.log(formattedString);
+    callPhp({ calc: calcString });
+})
+
+function callPhp(data) {
+    const xmlhttp = new XMLHttpRequest();
+    const url = 'http://localhost:5678/storeData.php?calc=' + data.calc;
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.response);
+        } else if (this.status == 404) {
+            console.log("didn't load");
+        }
+    };
+    xmlhttp.open('GET', url, true);
+    xmlhttp.send(data);
+}
 
 // AC button logic
 clearButton.addEventListener('click', function () {

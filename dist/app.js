@@ -1,7 +1,5 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var calculationArray = [];
 var currentInputString = "";
 var calcString = "";
@@ -9,6 +7,7 @@ var headerDisplay = document.getElementById('input_display');
 var totalDisplay = document.getElementById('total_display');
 var clearButton = document.getElementById('clear_button');
 var equalsButton = document.getElementById('equals_button');
+var saveButton = document.getElementById('save_button');
 var numericButtons = Array.prototype.slice.call(document.querySelectorAll('.button__numeric'));
 var operatorButtons = Array.prototype.slice.call(document.querySelectorAll('.button__operator'));
 numericButtons.map(function (numBtn) {
@@ -56,12 +55,34 @@ equalsButton.addEventListener('click', function () {
   }
 
   var result = eval(calcString);
-  console.log(_typeof(result));
   var formattedString = formatString(calcString);
   displayHeader(formattedString + " =");
   totalDisplay.innerText = result;
   clearCalcData();
 });
+saveButton.addEventListener('click', function () {
+  var formattedString = formatString(calcString);
+  callPhp({
+    calc: calcString
+  });
+});
+
+function callPhp(data) {
+  var xmlhttp = new XMLHttpRequest();
+  var url = 'http://localhost:5678/storeData.php?calc=' + data.calc;
+
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.response);
+    } else if (this.status == 404) {
+      console.log("didn't load");
+    }
+  };
+
+  xmlhttp.open('GET', url, true);
+  xmlhttp.send(data);
+}
+
 clearButton.addEventListener('click', function () {
   clearDisplay();
 });
