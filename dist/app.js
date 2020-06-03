@@ -61,20 +61,18 @@ equalsButton.addEventListener('click', function () {
   clearCalcData();
 });
 saveButton.addEventListener('click', function () {
-  var formattedString = formatString(calcString);
-  callPhp({
+  var url = 'http://localhost:4000/storeData.php?calc=' + calcString;
+  callPhp(url, {
     calc: calcString
   });
+  window.location.href = 'http://localhost:4000/calculations.php';
 });
 
-function callPhp(data) {
+function callPhp(url, data) {
   var xmlhttp = new XMLHttpRequest();
-  var url = 'http://localhost:5678/storeData.php?calc=' + data.calc;
 
   xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.response);
-    } else if (this.status == 404) {
+    if (this.status == 404) {
       console.log("didn't load");
     }
   };

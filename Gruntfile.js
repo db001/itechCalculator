@@ -22,6 +22,7 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: false,
                 presets: ['@babel/preset-env'],
+                plugins: ["@babel/plugin-transform-runtime"],
                 comments: false
             },
             dist: {

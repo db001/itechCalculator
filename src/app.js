@@ -90,18 +90,15 @@ equalsButton.addEventListener('click', function () {
 
 // Save button logic
 saveButton.addEventListener('click', function () {
-    const formattedString = formatString(calcString);
-    // console.log(formattedString);
-    callPhp({ calc: calcString });
-})
+    const url = 'http://localhost:4000/storeData.php?calc=' + calcString;
+    callPhp(url, { calc: calcString });
+    window.location.href = 'http://localhost:4000/calculations.php';
+});
 
-function callPhp(data) {
+function callPhp(url, data) {
     const xmlhttp = new XMLHttpRequest();
-    const url = 'http://localhost:5678/storeData.php?calc=' + data.calc;
     xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
-        } else if (this.status == 404) {
+        if (this.status == 404) {
             console.log("didn't load");
         }
     };
