@@ -45,18 +45,21 @@ body {
   line-height: 50px;
   width: 50px;
 }
+.button_row .button:active {
+  box-shadow: inset 1px 1px 2px rgba(75, 75, 75, 0.25);
+}
 .button_row .button__misc {
   background-color: #ec475c;
   width: 75px;
 }
 .button_row .button__misc:hover {
-  background-color: #e71933;
+  background-color: #eb3e54;
 }
 .button_row .button__numeric {
   background-color: #f6827a;
 }
 .button_row .button__numeric:hover {
-  background-color: #f3554a;
+  background-color: #f57970;
 }
 .button_row .button__numeric.button__blank {
   pointer-events: none;
@@ -65,5 +68,5 @@ body {
   background-color: #f7ba86;
 }
 .button_row .button__operator:hover, .button_row .button__equals:hover {
-  background-color: #f49f56;
+  background-color: #f6b57c;
 }
