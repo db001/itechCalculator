@@ -17,9 +17,11 @@ numericButtons.map(function (numBtn) {
 
     if (btnAttr === "." && currentInputString.length === 0) {
       currentInputString += "0.";
+      calcString += "0.";
     }
 
     if (btnAttr === "." && currentInputString.indexOf(".") != -1 || currentInputString.length >= 7) {
+      totalDisplay.innerText = currentInputString;
       return;
     }
 
@@ -61,11 +63,15 @@ equalsButton.addEventListener('click', function () {
   clearCalcData();
 });
 saveButton.addEventListener('click', function () {
-  var url = 'http://localhost:4000/storeData.php?calc=' + calcString;
+  if (calcString.length === 0) {
+    return;
+  }
+
+  var url = 'http://localhost:8000/storeData.php?calc=' + calcString;
   callPhp(url, {
     calc: calcString
   });
-  window.location.href = 'http://localhost:4000/calculations.php';
+  window.location.href = 'http://localhost:8000/calculations.php';
 });
 
 function callPhp(url, data) {

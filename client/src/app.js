@@ -24,11 +24,13 @@ numericButtons.map(numBtn => {
 
         // If the first digit is a decimal place, add a leading zero
         if (btnAttr === "." && currentInputString.length === 0) {
-            currentInputString += "0."
+            currentInputString += "0.";
+            calcString += "0.";
         }
 
         // If there is already a decimal place, ignore second input of it
         if ((btnAttr === "." && currentInputString.indexOf(".") != -1) || currentInputString.length >= 7) {
+            totalDisplay.innerText = currentInputString;
             return;
         }
 
@@ -90,11 +92,18 @@ equalsButton.addEventListener('click', function () {
 
 // Save button logic
 saveButton.addEventListener('click', function () {
-    const url = 'http://localhost:4000/storeData.php?calc=' + calcString;
+    // Don't fire if no calculations have been done
+    if (calcString.length === 0) {
+        return;
+    }
+    const url = 'http://localhost:8000/storeData.php?calc=' + calcString;
     callPhp(url, { calc: calcString });
-    window.location.href = 'http://localhost:4000/calculations.php';
+    window.location.href = 'http://localhost:8000/calculations.php';
 });
 
+/*
+ * 
+ */
 function callPhp(url, data) {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
