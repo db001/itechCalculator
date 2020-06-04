@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Calculations</title>
+        <title>Calculations Table</title>
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="styles.css" />
     </head>
@@ -26,11 +26,10 @@
     // Create HTML table
     echo "<table><tr>";
 
-    // Add headers as table headers
+    // Add CSV headers as table headers
     foreach($header as $cell) {
         echo "<th>" . htmlspecialchars($cell) . "</th>";
     }
-
     echo "</tr>";
 
     // Loop through data array and add each element as a row in the table
@@ -44,5 +43,5 @@
 
     echo "</table>";
     ?>
- </body>
+    </body>
 </html>

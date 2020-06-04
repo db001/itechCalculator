@@ -1,4 +1,3 @@
-let calculationArray = [];
 // String to hold the current input value for display in the total
 let currentInputString = "";
 // String to hold all chars entered, used for final calculation
@@ -47,12 +46,13 @@ operatorButtons.map(opBtn => {
     opBtn.addEventListener('click', function () {
         // Get operator value from HTML
         const operator = this.dataset.operator;
+
         const lastElement = calcString[calcString.length - 1];
 
         // Reset input string
         currentInputString = "";
 
-        // If no numeric inputs yet, add zero to calcString
+        // If no numeric inputs yet, add zero to calculation
         if (calcString.length === 0) {
             calcString += 0;
         }
@@ -80,8 +80,10 @@ equalsButton.addEventListener('click', function () {
         calcString = calcString.slice(0, -1);
     }
 
+    // Evaluate calcString to get a result
     const result = eval(calcString);
 
+    // Format calcString to add spaces and "="
     const formattedString = formatString(calcString)
     displayHeader(formattedString + " =");
 
@@ -96,14 +98,12 @@ saveButton.addEventListener('click', function () {
     if (calcString.length === 0) {
         return;
     }
+
     const url = 'http://localhost:8000/storeData.php?calc=' + calcString;
     callPhp(url, { calc: calcString });
     window.location.href = 'http://localhost:8000/calculations.php';
 });
 
-/*
- * 
- */
 function callPhp(url, data) {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {

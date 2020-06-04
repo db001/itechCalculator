@@ -1,6 +1,5 @@
 "use strict";
 
-var calculationArray = [];
 var currentInputString = "";
 var calcString = "";
 var headerDisplay = document.getElementById('input_display');
