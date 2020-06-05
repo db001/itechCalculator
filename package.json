@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "concurrently \"npm run phpserver --prefix ./server\" \"npm run dev --prefix ./client\""
+        "dev": "concurrently \"npm run phpserver --prefix ./server\" \"npm run dev --prefix ./client\"",
+        "servers": "concurrently \"npm run phpserver --prefix ./server\" \"npm run server --prefix ./client\""
     },
     "repository": {
         "type": "git",
