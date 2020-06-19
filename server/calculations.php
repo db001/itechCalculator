@@ -1,11 +1,13 @@
 <html>
     <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>Calculations Table</title>
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="styles.css" />
     </head>
     <body>
  <?php
+    
     // Open csv file, create empty array for data and get csv headers
     $file = fopen("calculations.csv", "r");
     $csvArray = array();

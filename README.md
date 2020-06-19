@@ -6,7 +6,7 @@ In the base directory use the command `npm run servers` to run the development s
 
 For development (including Grunt) run `npm run dev`.
 
-Open the browser to [http://localhost:8080](http://localhost:8080).
+Open the browser to [http://localhost:5050](http://localhost:5050).
 
 This project was built using [Grunt](https://gruntjs.com/) as a task runner to transpile ES6 (using [Babel](https://babeljs.io/)) and to compile Sass.
 

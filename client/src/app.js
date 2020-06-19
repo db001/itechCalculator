@@ -99,12 +99,13 @@ saveButton.addEventListener('click', function () {
         return;
     }
 
-    const url = 'http://localhost:8000/storeData.php?calc=' + calcString;
+    const url = 'http://localhost:8080/storeData.php?calc=' + calcString;
     callPhp(url, { calc: calcString });
-    window.location.href = 'http://localhost:8000/calculations.php';
+    window.location.href = 'http://localhost:8080/calculations.php';
 });
 
 function callPhp(url, data) {
+    console.log(data);
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.status == 404) {
